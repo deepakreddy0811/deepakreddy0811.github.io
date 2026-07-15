@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Venkata Deepak Reddy Penubaka — AI/ML Engineer</title>
+<meta name="description" content="AI/ML Engineer building production systems around LLMs, retrieval, agents, and MLOps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F5F7;
+    --paper-2:#FFFFFF;
+    --ink:#16181D;
+    --muted:#6B7280;
+    --rule:#DBDEE4;
+    --signal:#3D2ECC;
+    --signal-soft:#E9E7FC;
+    --alert:#B91C3C;
+    --ok:#0F766E;
+    --display:"Bricolage Grotesque",system-ui,sans-serif;
+    --body:"IBM Plex Sans",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --wrap:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:var(--body);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+  a{color:inherit}
+  ::selection{background:var(--signal);color:#fff}
+  :focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:20;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-in{display:flex;justify-content:space-between;align-items:center;height:58px}
+  .mark{font-family:var(--mono);font-size:12px;letter-spacing:.14em;font-weight:500}
+  .nav-links{display:flex;gap:26px;font-size:13.5px}
+  .nav-links a{text-decoration:none;color:var(--muted)}
+  .nav-links a:hover{color:var(--signal)}
+
+  /* ---------- hero ---------- */
+  header{padding:88px 0 64px;border-bottom:1px solid var(--rule)}
+  .eyebrow{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--signal);margin-bottom:22px;
+  }
+  h1{
+    font-family:var(--display);
+    font-size:clamp(2.5rem,6.4vw,4.6rem);
+    font-weight:800;line-height:.98;letter-spacing:-.035em;
+    max-width:16ch;margin-bottom:26px;
+  }
+  h1 em{font-style:normal;color:var(--signal)}
+  .lede{font-size:1.06rem;color:var(--muted);max-width:56ch}
+  .lede strong{color:var(--ink);font-weight:500}
+
+  /* ---------- retrieval demo ---------- */
+  .demo{
+    margin-top:52px;background:var(--paper-2);
+    border:1px solid var(--rule);border-radius:6px;overflow:hidden;
+  }
+  .demo-bar{
+    display:flex;align-items:center;gap:12px;
+    padding:13px 16px;border-bottom:1px solid var(--rule);
+  }
+  .demo-tag{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);white-space:nowrap;
+  }
+  .demo-bar input{
+    flex:1;border:0;background:transparent;font-family:var(--body);
+    font-size:15px;color:var(--ink);
+  }
+  .demo-bar input:focus{outline:none}
+  .demo-bar input::placeholder{color:#A9AEB8}
+  .rows{padding:6px 0 10px}
+  .row{
+    display:grid;grid-template-columns:52px 108px 1fr;
+    gap:14px;align-items:center;
+    padding:9px 16px;
+    transition:background .18s ease;
+  }
+  .row.top{background:var(--signal-soft)}
+  .score{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .row.top .score{color:var(--signal);font-weight:500}
+  .bar{height:5px;background:#E7E9EE;border-radius:3px;overflow:hidden}
+  .bar span{
+    display:block;height:100%;background:#C6CAD4;border-radius:3px;
+    transition:width .34s cubic-bezier(.4,0,.2,1);
+  }
+  .row.top .bar span{background:var(--signal)}
+  .chunk{
+    font-size:13.5px;color:var(--muted);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .row.top .chunk{color:var(--ink)}
+  .demo-foot{
+    padding:11px 16px;border-top:1px solid var(--rule);
+    font-family:var(--mono);font-size:11px;color:var(--muted);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  }
+  .chips{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .chip{
+    font-family:var(--mono);font-size:11.5px;
+    padding:5px 11px;border:1px solid var(--rule);border-radius:20px;
+    background:var(--paper-2);color:var(--muted);cursor:pointer;
+    transition:all .16s ease;
+  }
+  .chip:hover{border-color:var(--signal);color:var(--signal)}
+
+  /* ---------- sections ---------- */
+  section{padding:76px 0;border-bottom:1px solid var(--rule)}
+  .sec-head{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:34px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .sec-head::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+  /* ---------- projects ---------- */
+  .proj{
+    display:grid;grid-template-columns:1fr 340px;gap:44px;
+    padding:36px 0;border-top:1px solid var(--rule);
+  }
+  .proj:first-of-type{border-top:0;padding-top:0}
+  .proj h3{
+    font-family:var(--display);font-size:1.72rem;font-weight:600;
+    letter-spacing:-.02em;line-height:1.1;margin-bottom:12px;
+  }
+  .proj h3 a{text-decoration:none}
+  .proj h3 a:hover{color:var(--signal)}
+  .proj p{font-size:15px;color:var(--muted);margin-bottom:14px;max-width:52ch}
+  .proj p.finding{
+    color:var(--ink);border-left:2px solid var(--signal);
+    padding-left:14px;font-size:14.5px;
+  }
+  .tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+  .tool{
+    font-family:var(--mono);font-size:11px;color:var(--muted);
+    background:var(--paper-2);border:1px solid var(--rule);
+    padding:3px 8px;border-radius:3px;
+  }
+  .repo{
+    display:inline-flex;align-items:center;gap:7px;margin-top:18px;
+    font-family:var(--mono);font-size:12px;color:var(--signal);
+    text-decoration:none;border-bottom:1px solid transparent;
+  }
+  .repo:hover{border-bottom-color:var(--signal)}
+
+  /* readout panel */
+  .readout{
+    background:var(--paper-2);border:1px solid var(--rule);
+    border-radius:5px;padding:16px;align-self:start;
+    font-family:var(--mono);font-size:12px;
+  }
+  .readout-t{
+    font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);padding-bottom:9px;margin-bottom:9px;
+    border-bottom:1px solid var(--rule);
+  }
+  .r{display:flex;justify-content:space-between;gap:12px;padding:3.5px 0}
+  .r span:first-child{color:var(--muted)}
+  .r span:last-child{font-weight:500;font-variant-numeric:tabular-nums}
+  .v-alert{color:var(--alert)}
+  .v-ok{color:var(--ok)}
+  .v-sig{color:var(--signal)}
+
+  /* ---------- stack ---------- */
+  .stack{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 44px}
+  .grp-t{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--signal);margin-bottom:9px;
+  }
+  .grp-b{font-size:14.5px;color:var(--muted);line-height:1.75}
+
+  /* ---------- about ---------- */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:52px}
+  .cols h4{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--signal);margin-bottom:12px;
+  }
+  .cols li{list-style:none;font-size:14.5px;color:var(--muted);padding:3px 0}
+  .cols .deg{color:var(--ink);font-weight:500}
+
+  /* ---------- contact ---------- */
+  footer{padding:76px 0 88px}
+  .cta{
+    font-family:var(--display);font-size:clamp(1.8rem,4vw,2.8rem);
+    font-weight:600;letter-spacing:-.025em;line-height:1.1;
+    max-width:20ch;margin-bottom:30px;
+  }
+  .links{display:flex;gap:12px;flex-wrap:wrap}
+  .lnk{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:12.5px;text-decoration:none;
+    padding:11px 17px;border:1px solid var(--rule);border-radius:4px;
+    background:var(--paper-2);transition:all .16s ease;
+  }
+  .lnk:hover{border-color:var(--signal);color:var(--signal);transform:translateY(-1px)}
+  .lnk.primary{background:var(--signal);color:#fff;border-color:var(--signal)}
+  .lnk.primary:hover{opacity:.9;color:#fff}
+  .colophon{
+    margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);
+    font-family:var(--mono);font-size:11px;color:var(--muted);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  }
+
+  /* ---------- reveal ---------- */
+  .rv{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  .rv.in{opacity:1;transform:none}
+
+  @media (max-width:860px){
+    .proj{grid-template-columns:1fr;gap:26px}
+    .stack,.cols{grid-template-columns:1fr;gap:26px}
+    .nav-links{display:none}
+    header{padding:60px 0 48px}
+    .row{grid-template-columns:44px 72px 1fr;gap:10px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .rv{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="mark">V.D.R. PENUBAKA</div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#stack">Stack</a>
+      <a href="#background">Background</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">AI / ML Engineer · San Francisco</div>
+    <h1>I build systems that know when they're <em>wrong</em>.</h1>
+    <p class="lede">
+      Most of the work in machine learning happens after the model runs. My projects are about
+      the unglamorous half: <strong>grounding answers in real sources</strong>,
+      <strong>measuring whether they're actually correct</strong>, and
+      <strong>catching the moment a system quietly stops working</strong>.
+    </p>
+
+    <div class="demo">
+      <div class="demo-bar">
+        <span class="demo-tag">query</span>
+        <input id="q" type="text" value="How do you detect hallucination?"
+               aria-label="Search query for the retrieval demo" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="rows" id="rows"></div>
+      <div class="demo-foot">
+        <span>retrieval · top-<span id="k">3</span> of <span id="n">8</span> chunks</span>
+        <span id="stat">scored in 0.4 ms</span>
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <p style="margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--muted)">
+      ↑ This is retrieval, simplified — scoring here is word overlap, in the browser.
+      The real system embeds text and searches with FAISS.
+    </p>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head">Work</div>
+
+    <div class="proj rv">
+      <div>
+        <h3><a href="https://github.com/deepakreddy0811/rag-document-qa">RAG Document Q&amp;A</a></h3>
+        <p>
+          Ask questions about your own documents, get answers grounded in what they actually say.
+          Chunking with overlap, sentence-transformer embeddings, FAISS similarity search,
+          and a prompt that constrains the model to its retrieved context.
+        </p>
+        <p class="finding">
+          Top-<code>k</code> is the whole trade-off: more context usually means better answers,
+          until the extra chunks are just noise the model has to ignore.
+        </p>
+        <div class="tools">
+          <span class="tool">Python</span><span class="tool">FastAPI</span>
+          <span class="tool">FAISS</span><span class="tool">sentence-transformers</span>
+        </div>
+        <a class="repo" href="https://github.com/deepakreddy0811/rag-document-qa">→ github.com/deepakreddy0811/rag-document-qa</a>
+      </div>
+      <div class="readout">
+        <div class="readout-t">Pipeline</div>
+        <div class="r"><span>chunk size</span><span>500 w</span></div>
+        <div class="r"><span>overlap</span><span>50 w</span></div>
+        <div class="r"><span>embedding</span><span>MiniLM-L6</span></div>
+        <div class="r"><span>dimensions</span><span>384</span></div>
+        <div class="r"><span>index</span><span class="v-sig">IndexFlatIP</span></div>
+        <div class="r"><span>similarity</span><span>cosine</span></div>
+      </div>
+    </div>
+
+    <div class="proj rv">
+      <div>
+        <h3><a href="https://github.com/deepakreddy0811/multi-agent-assistant">Multi-Agent Assistant</a></h3>
+        <p>
+          A planner, a researcher, and a writer working one task through a shared-state orchestrator.
+          The researcher picks a tool from a registry and invokes it — reason, then act.
+        </p>
+        <p class="finding">
+          One prompt doing everything is a black box. Split the work and a failure has an address:
+          you can see which agent broke.
+        </p>
+        <div class="tools">
+          <span class="tool">Python</span><span class="tool">Tool Calling</span>
+          <span class="tool">ReAct</span><span class="tool">FastAPI</span>
+        </div>
+        <a class="repo" href="https://github.com/deepakreddy0811/multi-agent-assistant">→ github.com/deepakreddy0811/multi-agent-assistant</a>
+      </div>
+      <div class="readout">
+        <div class="readout-t">Trace</div>
+        <div class="r"><span>task</span><span>24 × (8 + 5)</span></div>
+        <div class="r"><span>planner</span><span>2 steps</span></div>
+        <div class="r"><span>tool chosen</span><span class="v-sig">calculator</span></div>
+        <div class="r"><span>argument</span><span>24 * (8 + 5)</span></div>
+        <div class="r"><span>result</span><span>312</span></div>
+        <div class="r"><span>agents</span><span>3</span></div>
+      </div>
+    </div>
+
+    <div class="proj rv">
+      <div>
+        <h3><a href="https://github.com/deepakreddy0811/llm-eval-harness">LLM Evaluation Harness</a></h3>
+        <p>
+          Scores answers on correctness, groundedness, and abstention — then fails CI when quality
+          regresses. Heuristics run free on every commit; an LLM judge handles what they can't see.
+        </p>
+        <p class="finding">
+          Run it on a model that refuses everything and a model that hallucinates: the useless one
+          scores higher. That's the case for never trusting a single metric.
+        </p>
+        <div class="tools">
+          <span class="tool">Python</span><span class="tool">LLM-as-Judge</span>
+          <span class="tool">Hallucination Detection</span><span class="tool">CI/CD</span>
+        </div>
+        <a class="repo" href="https://github.com/deepakreddy0811/llm-eval-harness">→ github.com/deepakreddy0811/llm-eval-harness</a>
+      </div>
+      <div class="readout">
+        <div class="readout-t">Groundedness · by model</div>
+        <div class="r"><span>good</span><span class="v-ok">0.571</span></div>
+        <div class="r"><span>hallucinating</span><span class="v-alert">0.074</span></div>
+        <div class="r"><span>lazy (refuses)</span><span>0.000</span></div>
+        <div class="readout-t" style="margin-top:14px;border-bottom:1px solid var(--rule)">token_f1</div>
+        <div class="r"><span>good</span><span class="v-ok">0.742</span></div>
+        <div class="r"><span>hallucinating</span><span class="v-alert">0.087</span></div>
+        <div class="r"><span>lazy (refuses)</span><span>0.286 ⚠</span></div>
+      </div>
+    </div>
+
+    <div class="proj rv">
+      <div>
+        <h3><a href="https://github.com/deepakreddy0811/mlops-pipeline">MLOps Pipeline</a></h3>
+        <p>
+          Everything after <code>model.fit()</code> — MLflow-tracked training, a containerised
+          serving API, and PSI drift monitoring on a schedule. Models don't fail loudly;
+          accuracy just decays while nothing throws an exception.
+        </p>
+        <p class="finding">
+          Churn runs at 28%, so predicting "nobody leaves" scores 0.72 accuracy. The model's 0.75
+          is barely above a rock. Accuracy was the wrong thing to read.
+        </p>
+        <div class="tools">
+          <span class="tool">scikit-learn</span><span class="tool">MLflow</span>
+          <span class="tool">Docker</span><span class="tool">FastAPI</span>
+          <span class="tool">PSI</span>
+        </div>
+        <a class="repo" href="https://github.com/deepakreddy0811/mlops-pipeline">→ github.com/deepakreddy0811/mlops-pipeline</a>
+      </div>
+      <div class="readout">
+        <div class="readout-t">Drift · PSI vs reference</div>
+        <div class="r"><span>tenure_months</span><span class="v-alert">1.195</span></div>
+        <div class="r"><span>monthly_charges</span><span class="v-alert">1.199</span></div>
+        <div class="r"><span>support_tickets</span><span class="v-alert">1.001</span></div>
+        <div class="r"><span>usage_hours</span><span class="v-ok">0.035</span></div>
+        <div class="r"><span>is_premium</span><span class="v-ok">0.000</span></div>
+        <div class="r" style="border-top:1px solid var(--rule);margin-top:8px;padding-top:8px">
+          <span>verdict</span><span class="v-alert">retrain</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">Stack</div>
+    <div class="stack">
+      <div class="rv">
+        <div class="grp-t">Languages</div>
+        <div class="grp-b">Python · Java · SQL</div>
+      </div>
+      <div class="rv">
+        <div class="grp-t">ML Frameworks</div>
+        <div class="grp-b">PyTorch · TensorFlow · scikit-learn · Hugging Face Transformers</div>
+      </div>
+      <div class="rv">
+        <div class="grp-t">LLM &amp; Retrieval</div>
+        <div class="grp-b">RAG · vector search · embeddings · tool calling · multi-agent systems · prompt engineering · LLM evaluation · LangChain · LangGraph</div>
+      </div>
+      <div class="rv">
+        <div class="grp-t">MLOps &amp; Cloud</div>
+        <div class="grp-b">MLflow · Docker · Kubernetes · AWS (SageMaker, S3, EKS) · CI/CD · Prometheus · Grafana</div>
+      </div>
+      <div class="rv">
+        <div class="grp-t">Data &amp; Distributed</div>
+        <div class="grp-b">Apache Spark · Kafka · Databricks · Ray</div>
+      </div>
+      <div class="rv">
+        <div class="grp-t">Storage &amp; Search</div>
+        <div class="grp-b">PostgreSQL · Redis · FAISS · Pinecone · Weaviate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="background">
+  <div class="wrap">
+    <div class="sec-head">Background</div>
+    <div class="cols">
+      <div class="rv">
+        <h4>Education</h4>
+        <ul>
+          <li class="deg">M.S. Computer Science &amp; Engineering</li>
+          <li style="padding-bottom:12px">University at Buffalo</li>
+          <li class="deg">B.Tech Computer Science &amp; Engineering</li>
+          <li>Puducherry Technological University</li>
+        </ul>
+      </div>
+      <div class="rv">
+        <h4>Certifications</h4>
+        <ul>
+          <li>AWS Certified Machine Learning Engineer — Associate</li>
+          <li>Databricks Certified Generative AI Engineer Associate</li>
+          <li>DeepLearning.AI — Multi AI Agent Systems with CrewAI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="sec-head">Contact</div>
+    <p class="cta">If you're building something that has to work in production, let's talk.</p>
+    <div class="links">
+      <a class="lnk primary" href="mailto:pvdeepakreddy08@gmail.com">✉ pvdeepakreddy08@gmail.com</a>
+      <a class="lnk" href="https://github.com/deepakreddy0811">GitHub</a>
+      <a class="lnk" href="https://linkedin.com/in/deepakreddy08">LinkedIn</a>
+    </div>
+    <div class="colophon">
+      <span>Venkata Deepak Reddy Penubaka · San Francisco, CA</span>
+      <span>Bricolage Grotesque · IBM Plex</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- retrieval demo -------------------------------------------------------
+// Simplified on purpose: scoring is word overlap computed in the browser.
+// The real project embeds chunks and searches them with FAISS.
+const CHUNKS = [
+  "Groundedness measures what fraction of an answer's words appear in the source context. A low score means the model is inventing — that's the hallucination signal.",
+  "Chunks overlap by 50 words so a sentence sitting on a boundary isn't cut in half and lost during retrieval.",
+  "PSI compares a feature's distribution in production against the one the model trained on. Above 0.25, retraining is recommended.",
+  "The researcher agent is prompted with the tool registry and replies 'tool_name | argument'. The orchestrator parses that and executes the tool.",
+  "IndexFlatIP does exact search using inner product. With normalized vectors that's cosine similarity.",
+  "A model that refuses every question can outscore one that hallucinates on token overlap — which is why no single metric can be trusted alone.",
+  "The scaler is fitted on training data and travels inside the same pipeline artifact, so serving can't scale differently from training.",
+  "Embeddings place text with similar meaning close together in vector space, which is what makes semantic search work at all."
+];
+const STOP = new Set("a an the is are was were be to of in on at for with and or it its this that how do you does what why".split(" "));
+const tok = s => s.toLowerCase().match(/[a-z0-9]+/g)?.filter(w => !STOP.has(w)) ?? [];
+
+function score(q, c){
+  const qt = tok(q), ct = new Set(tok(c));
+  if(!qt.length) return 0;
+  let hit = 0;
+  for(const w of qt) if(ct.has(w)) hit++;
+  return hit / qt.length;
+}
+
+const rowsEl = document.getElementById("rows");
+const statEl = document.getElementById("stat");
+document.getElementById("n").textContent = CHUNKS.length;
+
+function render(q){
+  const t0 = performance.now();
+  const ranked = CHUNKS
+    .map(c => ({c, s: score(q, c)}))
+    .sort((a,b) => b.s - a.s)
+    .slice(0, 3);
+  const ms = (performance.now() - t0).toFixed(1);
+
+  rowsEl.innerHTML = ranked.map((r,i) => `
+    <div class="row ${i===0 && r.s>0 ? "top":""}">
+      <span class="score">${r.s.toFixed(2)}</span>
+      <span class="bar"><span style="width:${Math.max(r.s*100,2)}%"></span></span>
+      <span class="chunk">${r.c}</span>
+    </div>`).join("");
+  statEl.textContent = `scored in ${ms} ms`;
+}
+
+const input = document.getElementById("q");
+input.addEventListener("input", e => render(e.target.value));
+render(input.value);
+
+// ---- example chips --------------------------------------------------------
+const EXAMPLES = [
+  "How do you detect hallucination?",
+  "Why do chunks overlap?",
+  "When should a model be retrained?",
+  "How does an agent choose a tool?"
+];
+document.getElementById("chips").innerHTML =
+  EXAMPLES.map(e => `<button class="chip">${e}</button>`).join("");
+document.querySelectorAll(".chip").forEach(b => {
+  b.addEventListener("click", () => {
+    input.value = b.textContent;
+    render(b.textContent);
+    input.focus();
+  });
+});
+
+// ---- scroll reveal --------------------------------------------------------
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+}, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".rv").forEach((el,i) => {
+  el.style.transitionDelay = `${Math.min(i*40,160)}ms`;
+  io.observe(el);
+});
+</script>
+</body>
+</html>
